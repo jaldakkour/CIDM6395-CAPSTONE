@@ -23,7 +23,7 @@ Data management and networking and cybersecurity are also highly integrated sect
 
 ---
 
-###References:  
+### References:  
 
 [1] Homework assignments for SQL coding (CIDM6350): 
 
