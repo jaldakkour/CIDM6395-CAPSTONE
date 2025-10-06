@@ -11,17 +11,12 @@ This section of the MS CISBA degree program proved to be the most challenging fo
 
 There were many resources used throughout these courses that were vital to learning and developing the knowledge and skills necessary to fulfill the requirements for this section of the program. The DataCamp platform, which is an online learning platform that offers lessons in a variety of topics including AI, data analysis, programming, and coding skills, was used to teach the fundamental subjects in CIDM6303. As a part of the course, I was required to complete specific DataCamp courses and asked to turn in the “Statement of Completion” as proof of completion. DataCamp also offers groups of courses together to complete a “track” to earn a track certificate. Along with tracks, DataCamp also offers “projects” where students are given a hands-on experience to practice using the skills taught in the lessons. Along with the DataCamp courses, CIDM6303 also utilized the free website “freecodecamp.com” which is a website designed to assist anyone in developing coding skills, as well as Google Cybersecurity certification courses offered through Coursera. There were many programs and programming languages such as HTML/CSS, SQL, Visual Studio, and python. I also used W3 Schools for the HTML/CSS coding project to help learn and determine what lines of code would be best to use for what I needed done. CIDM6330 utilized resources such as Github, where there were many course notes written by the professor, as well as other notes and examples were provided for students to follow. CIDM6330 also utilized the programs Visual Studio for coding, as well as the desktop version of Github and python coding.  
 
- 
-
- 
-
-Integration with Other Program Areas 
-
 Data analysis is an area of the MS CISBA program that is very integrated with software systems as it is vital for data driven development. Proper software development should be utilizing data analytics throughout the software development lifecycle (SDLC). Analytics can be utilized in the planning and requirements phase by collecting and analysing data. One example could be to identify what is currently on the market and customers’ reviews on it to determine areas for improvement is software programs. In the design phase, it can be used to track areas where there may be a coding inefficiency or error by tracking cycle times, bottleneck areas, and high usage areas. In the testing phase, analytics can use predictive analysis to identify which areas of the code are likely to be problematic and should have more testing performed based on data from the real world. In the deployment and maintenance phase, analytics can be used to track user behaviour, but also to monitor system health.  
 
 	Data management it another area in the MS CISBA program that is highly integrated with software development/systems. This is also another segment that is shown throughout the SDLC, but also in very technical ways. One such technical process that shows the integration between software development and data management is in database management systems (DBMS) and communications between softwares and systems. Softwares often communicate with a DBMS to pull information from the database as it is needed. They do this through an application programming interface (API), which is a software development segment of coding that allows softwares to communicate with each other. In the case of communicating with a DBMS, the API developed will be a simpler one that sends queries to the DBMS in the form the database’s language which will likely be in SQL. This communication is a prime example of the integration of software development and data management as two sections of the MS CISBA degree program.  
 
 	Software development and networking and cybersecurity are two areas that are highly integrated and reliant on each other. Understanding a network and how devices within a network communicate with each other is a requirement for software development. There are many different devices that must interact in a network for a network to run efficiently and smoothly, such as servers that are storing data and desktops that are running the software programs and are the interfaces for users. Software developers must understand TCP/IP to understand how servers communicate with desktops, and vice versa, to develop software that can most efficiently perform that communication. Furthermore, cybersecurity is vital to any network operating efficiently, not just to protect a network and information from outside threats, but inside threats as well. Software developers must account for security measures while they are developing software, a process known as Security by Design. The integration between these concepts ensures a secure network that functions efficiently.  
+
 
 ---
 
@@ -55,7 +50,6 @@ https://github.com/jaldakkour/CIDM6330/blob/main/Assignment%202/ERD%20diagram.md
 
 https://github.com/jaldakkour/CIDM6330/blob/main/Assignment%201/README.MD  
 
- 
 
 [8] Django REST Framework Original: 
 
