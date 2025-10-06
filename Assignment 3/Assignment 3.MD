@@ -25,7 +25,7 @@ Data analysis is an area of the MS CISBA program that is very integrated with so
 
 ---
 
-*** References and Samples:  
+### References and Samples:  
 
 [1] HTML/CSS Assignment:  
 
