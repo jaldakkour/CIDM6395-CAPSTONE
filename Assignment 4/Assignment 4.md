@@ -1,4 +1,4 @@
-# **MS CISBA Program Assignment 3: Assessing Software Development/Systems**
+# **MS CISBA Program Assignment 4: Networking and Cybersecurity**
 ---
 Networking and Cybersecurity is the last section in the Master of Science in Computer Information Systems and Business Analytics (MS CISBA) degree program that is considered a core competency area. The networking and cybersecurity section of the MS CISBA focuses on providing students the knowledge and understanding of networks and how devices in networks communicate with each other, information systems and how they operate, cybersecurity and network security knowledge and the ability to create a cybersecurity plan, as well as understanding risk management. The courses that I took to fulfil the requirements of the networking and cybersecurity component of the MS CISBA program are CIDM6340 Network Management and Security Information (CIDM6340) and CIDM6341 Cybersecurity and Risk Management (CIDM6341). CIDM6340 focused on the teaching students about networks, how devices in networks communicate, and how to design and upgrade networks to make them most efficient for the type of business that they are operating for. CIDM6341 held a large focus on cybersecurity and risk management topics. This course taught theoretical and applicable knowledge in cybersecurity topics that focus on security planning and management and risk management. This course also teaches students how to perform and has them perform a security audit. This section of the MS CISBA program is one that I feel I have learned many skills in and have developed a good understanding of; however, I will have many weaknesses still as I have not completed this section of the MS CISBA degree before taking the Capstone course. I am currently enrolled in CIDM6341 and as such will be weaker in these topics as I am still learning them.  
 
@@ -16,7 +16,7 @@ Software development and networking and cybersecurity are the last areas in the 
 
 ---
 
-#**References:  
+### References: 
 
 [1] NMAP Scan from CIDM6340:  
 
