@@ -1,3 +1,5 @@
+# **MS CISBA Program Assignment 3: Assessing Software Development/Systems**
+---
 Networking and Cybersecurity is the last section in the Master of Science in Computer Information Systems and Business Analytics (MS CISBA) degree program that is considered a core competency area. The networking and cybersecurity section of the MS CISBA focuses on providing students the knowledge and understanding of networks and how devices in networks communicate with each other, information systems and how they operate, cybersecurity and network security knowledge and the ability to create a cybersecurity plan, as well as understanding risk management. The courses that I took to fulfil the requirements of the networking and cybersecurity component of the MS CISBA program are CIDM6340 Network Management and Security Information (CIDM6340) and CIDM6341 Cybersecurity and Risk Management (CIDM6341). CIDM6340 focused on the teaching students about networks, how devices in networks communicate, and how to design and upgrade networks to make them most efficient for the type of business that they are operating for. CIDM6341 held a large focus on cybersecurity and risk management topics. This course taught theoretical and applicable knowledge in cybersecurity topics that focus on security planning and management and risk management. This course also teaches students how to perform and has them perform a security audit. This section of the MS CISBA program is one that I feel I have learned many skills in and have developed a good understanding of; however, I will have many weaknesses still as I have not completed this section of the MS CISBA degree before taking the Capstone course. I am currently enrolled in CIDM6341 and as such will be weaker in these topics as I am still learning them.  
 
 There are many skills that I have learned and feel confident in from this section, even though I am still completing it. In CIDM6340, I most enjoyed learning about the network basics and learning how devices in networks communicate with each other. I learned about various programs that can be used to test different kinds of communications between devices on a network. These programs include NMAP, which is a network mapping scanner that maps out what devices are on a network. This scan is used to identify all devices on that are on a network, as well as what type of devices they are (see reference [1]). Another scanning program used that I felt confident in using and understanding the results was ShieldsUp, which is a port scanner for a device on a network that tells the user what status the tested ports responded to be in (see reference [2]). I utilized the ShieldsUp scanner for assignments in both CIDM6340 and CIDM6341 (see reference [6]). I also learned to analyse the results of the test and the meaning behind those results. For example, a port could be open, closed, or stealth. Open is not good for a network, as this means that the device is responding to a ping from an outside source as well as accepting it which is exactly what hackers are looking for as this is an easy way to get into a device. Closed is better, as it means that a device is not accepting the ping from an outside device; however, it is still responding to the ping which is not good as it notifies outsiders that there is a device there. Stealth is the ideal response, as it does not accept a ping, nor does it respond to a ping. Nessus is yet another scanning program that was used (see reference [3] and references [5a], [5b], and [5c]). In CIDM6340, Nessus is another vulnerability scanner that was used to scan networks and network devices to discover security vulnerabilities which could include devices with updates that need to be implemented, misconfigurations in operating systems, or weak credentials for example. Although I am still working on CIDM6341, the few assignments I have completed are assignments that I feel strongly about as they have built upon the topics learned and discussed in CIDM6340. Along with completing another ShieldsUp scan, I used the HaveIbeenPwned? website to scan my school and personal email. This website identifies whether the email in question was involved in a data breach and/or if data related to the email has been found on the dark web or hacker forums (see reference [7]).  
@@ -12,21 +14,9 @@ Data mangement is another area that is integrated deeply with networking and cyb
 
 Software development and networking and cybersecurity are the last areas in the MS CISBA degree program that are integrated with each other. One way that this is shown is through the idea of infrastructure-as-a-code (IaC). The two become integrated when developers write and develop the code to establish servers and configurations. Cybersecurity practices are implemented through scanning the logs from this to identify misconfigurations, which could include an open firewall port (accidentally left open or unencrypted data being stored). This all is done before the infrastructure is completed built and implemented to avoid implementing a vulnerable network. By performing this analysis and emphasizing the importance of security in the developmental process, this takes a proactive approach to cybersecurity and ensures that as many possible security risks are eliminated or mitigated before they are discovered by harmful players.  
 
- 
+---
 
- 
-
- 
-
- 
-
- 
-
- 
-
- 
-
-References:  
+#**References:  
 
 [1] NMAP Scan from CIDM6340:  
 
