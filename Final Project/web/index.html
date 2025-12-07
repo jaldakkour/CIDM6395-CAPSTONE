@@ -8,34 +8,148 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header>
-        <h1>Conversion Compass Insights Dashboard</h1>
-        <p>Key Analytical Metrics for Tea Sales and Social Engagement.</p>
+        <h1>☕ Conversion Compass Insights Dashboard</h1>
     </header>
 
-    <main>
-        <section id="social-impact">
-            <h2>Social Media Performance</h2>
-            <div class="chart-container">
-                <h3>Daily Engagements vs. Revenue</h3>
-                <img src="social_impact_time_series.png" alt="Time Series Chart"> 
+    <main class="dashboard">
+
+        <div class="row">
+            
+            <div class="chart-box full-width">
+                <h3>Actual Facebook Daily Engagements (ETL Proof)</h3>
+                <canvas id="facebookEngagementsChart"></canvas>
+            </div>
+
+            <div class="chart-box full-width">
+                <h3>Predictive Insight: Optimal Posting Day</h3>
+                <canvas id="dayOfWeekChart"></canvas>
             </div>
             
-            <div class="chart-container">
-                <h3>Optimal Posting Day Prediction</h3>
-                <img src="revenue_by_day_of_week.png" alt="Day of Week Chart">
-            </div>
-        </section>
+        </div>
 
-        <hr>
-
-        <section id="flavor-insights">
-            <h2>Product & Flavor Insights</h2>
-            <div class="chart-container">
-                <h3>Top 10 Primary Flavors (Predictive)</h3>
-                <img src="predictive_flavor_favorability.png" alt="Flavor Favorability Chart">
+        <div class="row">
+            
+            <div class="chart-box full-width">
+                <h3>Top 10 Primary Flavors: Historical vs. Predicted Units Sold</h3>
+                <canvas id="combinedFlavorChart"></canvas>
             </div>
-        </section>
+            
+        </div>
+        
+        <div class="row">
+            
+            <div class="chart-box">
+                <h3>Inventory Management: Stock vs. Sales (Fixed)</h3>
+                <img src="Final Project/web/inventory_sales_comparison.png" alt="Inventory Comparison Chart">
+            </div>
+
+            <div class="chart-box">
+                <h3>Predictive Sales Trend: Top 5 Flavors (Fixed Clarity)</h3>
+                <img src="Final Project/web/flavor_sales_trend.png" alt="Flavor Sales Trend Chart">
+            </div>
+            
+        </div>
+        
+        <div class="chart-box full-width">
+            <h3>Social Engagements and Revenue Over Time</h3>
+            <img src="Final Project/web/social_impact_time_series.png" alt="Social Impact Time Series Chart">
+        </div>
+
     </main>
+
+    <footer>
+        <p>&copy; 2025 Conversion Compass</p>
+    </footer>
+
+    <script>
+        // Set the path prefix for fetching JSON files
+        const dataPath = 'Final Project/web/';
+
+        // 1. ACTUAL FACEBOOK ENGAGEMENTS (ETL PROOF)
+        fetch(dataPath + 'facebook_engagements.json')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('facebookEngagementsChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line', 
+                    data: {
+                        labels: data.map(item => item.post_date),
+                        datasets: [{
+                            label: 'Total Engagements',
+                            data: data.map(item => item.total_engagements),
+                            borderColor: 'rgb(75, 192, 192)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            tension: 0.3,
+                            fill: true
+                        }]
+                    },
+                    options: { 
+                        responsive: true,
+                        scales: { x: { title: { display: true, text: 'Post Date' } } }
+                    }
+                });
+            });
+
+        // 2. OPTIMAL POSTING DAY (DAY OF WEEK AVG REVENUE)
+        fetch(dataPath + 'day_of_week_avg_revenue.json')
+            .then(response => response.json())
+            .then(data => {
+                // Ensure the day order is correct for display
+                const dayOrder = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+                data.sort((a, b) => dayOrder.indexOf(a.day_name) - dayOrder.indexOf(b.day_name));
+
+                const ctx = document.getElementById('dayOfWeekChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.map(item => item.day_name),
+                        datasets: [{
+                            label: 'Average Daily Revenue ($)',
+                            data: data.map(item => item.avg_revenue),
+                            backgroundColor: 'rgba(153, 102, 255, 0.8)',
+                            borderColor: 'rgba(153, 102, 255, 1)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: { responsive: true }
+                });
+            });
+            
+        // 3. COMBINED FLAVOR SALES (HISTORICAL VS PREDICTIVE)
+        fetch(dataPath + 'flavor_sales_comparison.json')
+            .then(response => response.json())
+            .then(data => {
+                const flavors = data.map(item => item.flavor_1);
+                const historical = data.map(item => item.historical_units_sold);
+                const predicted = data.map(item => item.predicted_units_sold);
+
+                const ctx = document.getElementById('combinedFlavorChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: flavors,
+                        datasets: [
+                            {
+                                label: 'Historical Units Sold',
+                                data: historical,
+                                backgroundColor: 'rgba(54, 162, 235, 0.8)'
+                            },
+                            {
+                                label: 'Predicted Units Sold',
+                                data: predicted,
+                                backgroundColor: 'rgba(255, 99, 132, 0.8)'
+                            }
+                        ]
+                    },
+                    options: { 
+                        responsive: true,
+                        indexAxis: 'y', // Makes it a horizontal bar chart
+                    }
+                });
+            });
+
+    </script>
 </body>
 </html>

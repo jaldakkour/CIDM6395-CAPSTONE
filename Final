@@ -136,32 +136,16 @@ ax2.tick_params(axis='y', labelcolor=color)
 plt.title(f'Social Engagements and Revenue Over Time (Correlation: {correlation:.2f})')
 fig.tight_layout()
 plt.grid(True, axis='y', linestyle=':', alpha=0.6)
-plt.savefig('Final Project/web/social_impact_time_series.png')
+plt.savefig('social_impact_time_series.png')
 print("Saved chart: social_impact_time_series.png")
 
 # --- EXPORT 1: TIME SERIES (Charts 1) ---
 df_time_series_export = df[['post_date', 'daily_engagements', 'daily_revenue']].copy()
 # Convert date objects to string for JSON compatibility
 df_time_series_export['post_date'] = df_time_series_export['post_date'].astype(str)
-df_time_series_export.to_json('Final Project/web/time_series_data.json', orient='records', indent=4)
+df_time_series_export.to_json('web/time_series_data.json', orient='records', indent=4)
 print("Exported: time_series_data.json (for Chart 1)")
 
-# --- CHART 1.5: ACTUAL FACEBOOK ENGAGEMENTS (ETL PROOF) ---
-print("Generating Actual Facebook Engagements Data (ETL Proof)...")
-
-# Create a simple DataFrame for the raw Facebook data flow proof
-# We use the existing df_mock_social data (Impressions/Engagements)
-# Note: We must explicitly convert the date column to a string format here.
-df_facebook_proof = df_mock_social[['post_date', 'daily_engagements']].copy()
-
-# Convert date objects to string for JSON compatibility
-df_facebook_proof['post_date'] = df_facebook_proof['post_date'].dt.strftime('%Y-%m-%d')
-df_facebook_proof.rename(columns={'daily_engagements': 'total_engagements'}, inplace=True)
-
-# --- EXPORT 1.5: FACEBOOK ENGAGEMENTS (New Chart JSON) ---
-json_path_fb = 'Final Project/web/facebook_engagements.json'
-df_facebook_proof.to_json(json_path_fb, orient='records', indent=4)
-print(f"Exported: facebook_engagements.json (for ETL Proof Chart) to {json_path_fb}")
 
 # --- CHART 2: PREDICTIVE DAY OF WEEK ANALYSIS ---
 print("Generating Day of Week Analysis (Chart 2)...")
@@ -181,17 +165,17 @@ plt.title('Predictive Insight: Average Revenue by Day of Week')
 plt.xlabel('Day of Week (Predicted Optimal Posting Time)')
 plt.ylabel('Average Daily Revenue (USD)')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
-plt.savefig('Final Project/web/revenue_by_day_of_week.png')
+plt.savefig('revenue_by_day_of_week.png')
 print("Saved chart: revenue_by_day_of_week.png")
 
 # --- EXPORT 2: DAY OF WEEK AVERAGE (Chart 2) ---
 # 'daily_avg' DataFrame already exists from Chart 2 generation
-daily_avg.to_json('Final Project/web/day_of_week_avg_revenue.json', orient='records', indent=4)
+daily_avg.to_json('web/day_of_week_avg_revenue.json', orient='records', indent=4)
 print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
 
 # --- EXPORT 2: DAY OF WEEK AVERAGE (Chart 2) ---
 # 'daily_avg' DataFrame already exists from Chart 2 generation
-daily_avg.to_json('Final Project/web/day_of_week_avg_revenue.json', orient='records', indent=4)
+daily_avg.to_json('web/day_of_week_avg_revenue.json', orient='records', indent=4)
 print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
 
 # --- ANALYSIS 2: TEA FLAVOR (SQL-Driven) ---
@@ -249,19 +233,18 @@ plt.ylabel('Units')
 plt.xlabel('Tea Flavor')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('Final Project/web/inventory_sales_comparison.png')
+plt.savefig('inventory_sales_comparison.png')
 print("Saved chart: inventory_sales_comparison.png")
 
 # --- EXPORT 3: INVENTORY ANALYSIS (Chart 3) ---
 # 'inventory_analysis' DataFrame already exists from Chart 3 generation
-inventory_analysis.to_json('Final Project/web/inventory_analysis.json', orient='records', indent=4)
+inventory_analysis.to_json('web/inventory_analysis.json', orient='records', indent=4)
 print("Exported: inventory_analysis.json (for Chart 3)")
 
 # --- CHART 4: PREDICTIVE FLAVOR TREND ---
 print("Generating Predictive Flavor Trend Chart (Chart 4)...")
-daily_flavor_sales = df_sales_detail.groupby(['sale_date', 'tea_flavor'])['units_sold'].sum().unstack(fill_value=0)
 
-# 1. Identify the top 5 flavors by total sales (using the existing flavor_sales_summary)
+#1. Identify the top 5 flavors by total sales
 top_5_flavors = flavor_sales_summary.sort_values(
     'total_units_sold', ascending=False
 ).head(5)['tea_flavor'].tolist()
@@ -272,20 +255,22 @@ daily_flavor_sales = df_sales_detail[
 ].groupby(['sale_date', 'tea_flavor'])['units_sold'].sum().unstack(fill_value=0)
 
 plt.figure(figsize=(12, 6))
-daily_flavor_sales.plot(ax=plt.gca())
-plt.title('Predictive Sales Trend: Daily Units Sold for Top 5 Tea Flavors (Fixed Clarity)')
+daily_flavor_sales.plot(ax=plt.gca()) # No need for legend=False, now the legend is manageable
+plt.title('Predictive Sales Trend: Daily Units Sold for Top 5 Tea Flavors')
 plt.xlabel('Date')
 plt.ylabel('Daily Units Sold')
+# Move legend outside for better layout
 plt.legend(title='Tea Flavor', bbox_to_anchor=(1.05, 1), loc='upper left') 
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('Final Project/web/flavor_sales_trend.png')
+plt.savefig('flavor_sales_trend.png')
 print("Saved chart: flavor_sales_trend.png (Chart 4 - Fixed)")
 
-# --- CHART 5: COMBINED HISTORICAL & PREDICTIVE FLAVOR SALES (NEW REQUIREMENT) ---
-print("Generating Combined Flavor Sales Chart (Chart 5)...")
 
-# 1. Merge Sales Data with Catalog Data (to get Flavor 1)
+# --- CHART 5: PREDICTIVE FLAVOR FAVORABILITY ---
+print("Generating Predictive Flavor Favorability Chart (Chart 5)...")
+
+# Merge Sales Data with Catalog Data (to get Flavor 1)
 df_merged_flavor = pd.merge(
     df_sales_detail, 
     df_catalog, 
@@ -294,46 +279,27 @@ df_merged_flavor = pd.merge(
     how='left'
 )
 
-# 2. Aggregate Historical Sales by Primary Flavor
-historical_sales = df_merged_flavor.groupby('flavor_1')['units_sold'].sum().reset_index()
-historical_sales.rename(columns={'units_sold': 'historical_units_sold'}, inplace=True)
+# Aggregate sales by the primary flavor (Flavor 1)
+flavor_favorability = df_merged_flavor.groupby('flavor_1')['units_sold'].sum().reset_index()
+flavor_favorability.rename(columns={'units_sold': 'total_units_sold'}, inplace=True)
+flavor_favorability = flavor_favorability.sort_values('total_units_sold', ascending=False)
 
-# 3. Simulate Predictive Sales (For simplicity, predictions are historical sales + a random boost)
-historical_sales['predicted_units_sold'] = (
-    historical_sales['historical_units_sold'] * 1.05 +  # 5% baseline increase
-    np.random.randint(50, 150, len(historical_sales))  # Random boost for 'prediction'
-)
-# Ensure predictions are positive
-historical_sales['predicted_units_sold'] = np.maximum(0, historical_sales['predicted_units_sold'])
-
-# 4. Combine and Sort (Top 10 based on Historical Sales)
-combined_flavor_sales = historical_sales.sort_values(
-    'historical_units_sold', ascending=False
-)
-
-top_combined_flavors = combined_flavor_sales[combined_flavor_sales['flavor_1'] != 'N/A'].head(10)
-
-# --- CHART VISUALIZATION (Save PNG for fallback, JSON is for Chart.js) ---
+# Bar Chart Visualization (Top 10 Flavors)
 plt.figure(figsize=(12, 6))
-top_combined_flavors.set_index('flavor_1')[
-    ['historical_units_sold', 'predicted_units_sold']
-].plot(
-    kind='barh', 
-    figsize=(12, 6), 
-    title='Top 10 Primary Flavors: Historical vs. Predicted Units Sold'
-)
-plt.xlabel('Total Units Sold (Historical & Predicted)')
+top_flavors = flavor_favorability[flavor_favorability['flavor_1'] != 'N/A'].head(10)
+
+sns.barplot(x='total_units_sold', y='flavor_1', data=top_flavors, palette='magma', hue='flavor_1', legend=False)
+plt.title('Predictive Favorability: Top 10 Primary Flavors by Units Sold')
+plt.xlabel('Total Units Sold (Predictive Indicator)')
 plt.ylabel('Primary Flavor')
 plt.grid(axis='x', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('Final Project/web/combined_flavor_sales.png') # New PNG file name
-print("Saved chart: combined_flavor_sales.png")
+plt.savefig('predictive_flavor_favorability.png')
+print("Saved chart: predictive_flavor_favorability.png (Chart 5)")
 
-# --- EXPORT 4: COMBINED FLAVOR SALES (Chart 5 JSON) ---
-# This JSON is for the HTML grouped bar chart
-top_combined_flavors.to_json('Final Project/web/flavor_sales_comparison.json', orient='records', indent=4)
-print("Exported: flavor_sales_comparison.json (for Chart 5)")
-
-
+# --- EXPORT 4: FLAVOR FAVORABILITY (Chart 5) ---
+# 'top_flavors' DataFrame already exists from Chart 5 generation
+top_flavors.to_json('web/flavor_favorability.json', orient='records', indent=4)
+print("Exported: flavor_favorability.json (for Chart 5)")
 
 print("\n--- ETL and Analysis Pipeline Complete ---")

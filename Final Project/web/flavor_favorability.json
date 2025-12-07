@@ -1,42 +1,42 @@
 [
     {
         "flavor_1":"Bergamot",
-        "total_units_sold":1474
+        "total_units_sold":1476
     },
     {
         "flavor_1":"Spicy",
-        "total_units_sold":1405
-    },
-    {
-        "flavor_1":"Coconut",
-        "total_units_sold":982
+        "total_units_sold":1370
     },
     {
         "flavor_1":"Malt",
-        "total_units_sold":965
+        "total_units_sold":1026
     },
     {
-        "flavor_1":"Full-bodied",
-        "total_units_sold":528
-    },
-    {
-        "flavor_1":"Chocolate",
-        "total_units_sold":525
+        "flavor_1":"Coconut",
+        "total_units_sold":1007
     },
     {
         "flavor_1":"Strawberry",
-        "total_units_sold":524
-    },
-    {
-        "flavor_1":"Earthy",
-        "total_units_sold":524
-    },
-    {
-        "flavor_1":"Peppermint",
-        "total_units_sold":518
+        "total_units_sold":522
     },
     {
         "flavor_1":"Light",
         "total_units_sold":518
+    },
+    {
+        "flavor_1":"Sarsaparilla",
+        "total_units_sold":504
+    },
+    {
+        "flavor_1":"Pure Mint",
+        "total_units_sold":503
+    },
+    {
+        "flavor_1":"Sweet Vanilla",
+        "total_units_sold":500
+    },
+    {
+        "flavor_1":"Rose",
+        "total_units_sold":500
     }
 ]
