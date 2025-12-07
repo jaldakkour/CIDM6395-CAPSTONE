@@ -223,7 +223,7 @@ print("Generating Inventory Analysis Chart (Chart 3)...")
 flavor_sales_summary = df_sales_detail.groupby('tea_flavor')['units_sold'].sum().reset_index()
 flavor_sales_summary.rename(columns={'units_sold': 'total_units_sold'}, inplace=True)
 inventory_analysis = pd.merge(df_inventory, flavor_sales_summary, on='tea_flavor', how='left')
-inventory_analysis['ending_inventory'] = inventory_analysis['starting_inventory'] - inventory_analysis['total_units_sold']
+inventory_analysis['ending_inventory'] = np.maximum(0, inventory_analysis['starting_inventory'] - inventory_analysis['total_units_sold'])
 
 inventory_analysis.set_index('tea_flavor')[['starting_inventory', 'total_units_sold', 'ending_inventory']].plot(
     kind='bar', figsize=(14, 6), rot=45, 
@@ -245,16 +245,26 @@ print("Exported: inventory_analysis.json (for Chart 3)")
 print("Generating Predictive Flavor Trend Chart (Chart 4)...")
 daily_flavor_sales = df_sales_detail.groupby(['sale_date', 'tea_flavor'])['units_sold'].sum().unstack(fill_value=0)
 
+# 1. Identify the top 5 flavors by total sales (using the existing flavor_sales_summary)
+top_5_flavors = flavor_sales_summary.sort_values(
+    'total_units_sold', ascending=False
+).head(5)['tea_flavor'].tolist()
+
+# 2. Filter the detailed sales data for only those top 5 flavors
+daily_flavor_sales = df_sales_detail[
+    df_sales_detail['tea_flavor'].isin(top_5_flavors)
+].groupby(['sale_date', 'tea_flavor'])['units_sold'].sum().unstack(fill_value=0)
+
 plt.figure(figsize=(12, 6))
-daily_flavor_sales.plot(ax=plt.gca(), legend=False)
-plt.title('Predictive Sales Trend: Daily Units Sold by Tea Flavor')
+daily_flavor_sales.plot(ax=plt.gca())
+plt.title('Predictive Sales Trend: Daily Units Sold for Top 5 Tea Flavors (Fixed Clarity)')
 plt.xlabel('Date')
 plt.ylabel('Daily Units Sold')
-plt.legend(title='Tea Flavor', bbox_to_anchor=(1.05, 1), loc='upper left')
+plt.legend(title='Tea Flavor', bbox_to_anchor=(1.05, 1), loc='upper left') 
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
 plt.savefig('Final Project/web/flavor_sales_trend.png')
-print("Saved chart: flavor_sales_trend.png")
+print("Saved chart: flavor_sales_trend.png (Chart 4 - Fixed)")
 
 # --- CHART 5: PREDICTIVE FLAVOR FAVORABILITY ---
 print("Generating Predictive Flavor Favorability Chart (Chart 5)...")
