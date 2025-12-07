@@ -136,14 +136,14 @@ ax2.tick_params(axis='y', labelcolor=color)
 plt.title(f'Social Engagements and Revenue Over Time (Correlation: {correlation:.2f})')
 fig.tight_layout()
 plt.grid(True, axis='y', linestyle=':', alpha=0.6)
-plt.savefig('social_impact_time_series.png')
+plt.savefig('Final Project/web/social_impact_time_series.png')
 print("Saved chart: social_impact_time_series.png")
 
 # --- EXPORT 1: TIME SERIES (Charts 1) ---
 df_time_series_export = df[['post_date', 'daily_engagements', 'daily_revenue']].copy()
 # Convert date objects to string for JSON compatibility
 df_time_series_export['post_date'] = df_time_series_export['post_date'].astype(str)
-df_time_series_export.to_json('web/time_series_data.json', orient='records', indent=4)
+df_time_series_export.to_json('Final Project/web/time_series_data.json', orient='records', indent=4)
 print("Exported: time_series_data.json (for Chart 1)")
 
 
@@ -165,17 +165,17 @@ plt.title('Predictive Insight: Average Revenue by Day of Week')
 plt.xlabel('Day of Week (Predicted Optimal Posting Time)')
 plt.ylabel('Average Daily Revenue (USD)')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
-plt.savefig('revenue_by_day_of_week.png')
+plt.savefig('Final Project/web/revenue_by_day_of_week.png')
 print("Saved chart: revenue_by_day_of_week.png")
 
 # --- EXPORT 2: DAY OF WEEK AVERAGE (Chart 2) ---
 # 'daily_avg' DataFrame already exists from Chart 2 generation
-daily_avg.to_json('web/day_of_week_avg_revenue.json', orient='records', indent=4)
+daily_avg.to_json('Final Project/web/day_of_week_avg_revenue.json', orient='records', indent=4)
 print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
 
 # --- EXPORT 2: DAY OF WEEK AVERAGE (Chart 2) ---
 # 'daily_avg' DataFrame already exists from Chart 2 generation
-daily_avg.to_json('web/day_of_week_avg_revenue.json', orient='records', indent=4)
+daily_avg.to_json('Final Project/web/day_of_week_avg_revenue.json', orient='records', indent=4)
 print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
 
 # --- ANALYSIS 2: TEA FLAVOR (SQL-Driven) ---
@@ -233,12 +233,12 @@ plt.ylabel('Units')
 plt.xlabel('Tea Flavor')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('inventory_sales_comparison.png')
+plt.savefig('Final Project/web/inventory_sales_comparison.png')
 print("Saved chart: inventory_sales_comparison.png")
 
 # --- EXPORT 3: INVENTORY ANALYSIS (Chart 3) ---
 # 'inventory_analysis' DataFrame already exists from Chart 3 generation
-inventory_analysis.to_json('web/inventory_analysis.json', orient='records', indent=4)
+inventory_analysis.to_json('Final Project/web/inventory_analysis.json', orient='records', indent=4)
 print("Exported: inventory_analysis.json (for Chart 3)")
 
 # --- CHART 4: PREDICTIVE FLAVOR TREND ---
@@ -253,7 +253,7 @@ plt.ylabel('Daily Units Sold')
 plt.legend(title='Tea Flavor', bbox_to_anchor=(1.05, 1), loc='upper left')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('flavor_sales_trend.png')
+plt.savefig('Final Project/web/flavor_sales_trend.png')
 print("Saved chart: flavor_sales_trend.png")
 
 # --- CHART 5: PREDICTIVE FLAVOR FAVORABILITY ---
@@ -283,12 +283,12 @@ plt.xlabel('Total Units Sold (Predictive Indicator)')
 plt.ylabel('Primary Flavor')
 plt.grid(axis='x', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('predictive_flavor_favorability.png')
+plt.savefig('Final Project/web/predictive_flavor_favorability.png')
 print("Saved chart: predictive_flavor_favorability.png (Chart 5)")
 
 # --- EXPORT 4: FLAVOR FAVORABILITY (Chart 5) ---
 # 'top_flavors' DataFrame already exists from Chart 5 generation
-top_flavors.to_json('web/flavor_favorability.json', orient='records', indent=4)
+top_flavors.to_json('Final Project/web/flavor_favorability.json', orient='records', indent=4)
 print("Exported: flavor_favorability.json (for Chart 5)")
 
 print("\n--- ETL and Analysis Pipeline Complete ---")
