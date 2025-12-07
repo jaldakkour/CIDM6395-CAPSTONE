@@ -1,4 +1,8 @@
+# Paste the correct code you provided above.
+
 name: Deploy to GitHub Pages
+
+
 
 on:
   push:
@@ -6,15 +10,17 @@ on:
       - main
   workflow_dispatch:
 
+
 permissions:
   contents: read # This is usually default, but good practice
   pages: write   # Necessary for deploying to Pages
   id-token: write # CRITICAL: This grants permission for the deploy action
 
+
 jobs:
   build:
     runs-on: ubuntu-latest
-   
+
     permissions:
       contents: read
       pages: write
@@ -22,7 +28,7 @@ jobs:
 
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}    
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v4
@@ -31,7 +37,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'web'  
+          path: 'web'
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
