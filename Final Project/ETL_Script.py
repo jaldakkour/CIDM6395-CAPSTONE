@@ -5,6 +5,8 @@ import numpy as np
 import mysql.connector
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
+# Note: Faker is not explicitly imported here but is assumed to be available
+# if the generate_mock_sales_data function is used, and it was installed via pip.
 
 # --- Initialization & Configuration ---
 load_dotenv()
@@ -23,6 +25,7 @@ def get_db_connection(database_name):
             password=os.getenv("DB_PASS"),
             database=database_name
         )
+        print(f"Successfully connected to MySQL database: {database_name}")
         return conn
     except mysql.connector.Error as err:
         print(f"Error connecting to MySQL database '{database_name}': {err}")
@@ -31,21 +34,43 @@ def get_db_connection(database_name):
 # --- Facebook Extraction Function (DM) ---
 def extract_facebook_data(start_date, end_date, business_id):
     """Extracts high-level page/business metrics from Facebook over a time range."""
-    access_token = os.getenv("FB_ACCESS_TOKEN")
-    if not access_token:
+  # 1. RETRIEVE USER ACCESS TOKEN (LONG-LIVED) 
+    user_access_token = os.getenv("FB_ACCESS_TOKEN")
+    if not user_access_token:
         print("Error: FB_ACCESS_TOKEN not found in .env file.")
         return None
 
+# 2. Fetch the Page Access Token using the User Token
+    # This assumes the User has permissions to manage the page/business
+    try:
+        page_info_url = f"{FACEBOOK_GRAPH_API}{business_id}?fields=access_token&access_token={user_access_token}"
+        page_response = requests.get(page_info_url)
+        page_response.raise_for_status()
+        page_data = page_response.json()
+        
+        # The Page Access Token is required for fetching insights
+        page_access_token = page_data.get('access_token')
+        
+        if not page_access_token:
+            print("Error: Could not retrieve Page Access Token using the User Token.")
+            print(page_data)
+            return None
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error retrieving Page Token: {e}")
+        return None
+
+# 2. Use the Page Access Token to fetch the insights (the main task)
     endpoint = f"{business_id}/insights"
     params = {
         'metric': 'page_posts_impressions,page_post_engagements',
         'period': 'day',
-        'since': start_date.strftime("%Y-%m-%d"),
+        'since': start_date.strftime("%Y-%m-%d"), 
         'until': end_date.strftime("%Y-%m-%d"),
-        'access_token': access_token
+        'access_token': page_access_token
     }
     url = FACEBOOK_GRAPH_API + endpoint
-
+    
     try:
         print(f"Fetching data from Facebook API for {start_date.strftime('%Y-%m-%d')} to {end_date.strftime('%Y-%m-%d')}...")
         response = requests.get(url, params=params)
@@ -57,11 +82,12 @@ def extract_facebook_data(start_date, end_date, business_id):
             for metric in data['data']:
                 metric_name = metric['name']
                 for value_entry in metric.get('values', []):
+                    # Ensure end_time is timezone-naive datetime object
                     end_time = pd.to_datetime(value_entry['end_time']).tz_localize(None)
-
+                    
                     # Find existing entry or create new one for the date
                     date_exists = next((item for item in metrics_list if item['post_date'] == end_time), None)
-
+                    
                     if not date_exists:
                         new_entry = {
                             'post_date': end_time,
@@ -69,17 +95,17 @@ def extract_facebook_data(start_date, end_date, business_id):
                             'post_id': f"DAILY_AGG_{end_time.strftime('%Y%m%d')}",
                             'impressions': 0, 
                             'engagements': 0
-                            # Missing: reach, link_clicks, cost_usd (will be None/0 in load)
+                            # Missing columns will be set to None/0 in the load function
                         }
                         metrics_list.append(new_entry)
                         date_exists = new_entry
-
+                        
                     # Add the metric value
                     if metric_name == 'page_posts_impressions':
                         date_exists['impressions'] += value_entry.get('value', 0)
                     elif metric_name == 'page_post_engagements':
                         date_exists['engagements'] += value_entry.get('value', 0)
-
+            
             # Create DataFrame, ensuring required columns are present for the loader
             df = pd.DataFrame(metrics_list)
             if 'reach' not in df.columns: df['reach'] = 0
@@ -100,6 +126,8 @@ def extract_facebook_data(start_date, end_date, business_id):
 # --- Mock Data Generation Function (DM/BA) ---
 def generate_mock_sales_data(start_date, num_days):
     """Generates synthetic sales data for a specified period."""
+    # Note: Faker is implicitly used for some internal randomness if it was needed, 
+    # but the core logic relies on numpy/pandas.
     date_range = [start_date + timedelta(days=i) for i in range(num_days)]
     base_revenue = np.random.normal(loc=500, scale=100, size=num_days)
     is_social_day = np.random.choice([True, False], size=num_days, p=[0.3, 0.7])
@@ -122,18 +150,25 @@ def load_data_to_mysql(df, table_name, database_name, is_sales=False):
         return
 
     cursor = conn.cursor()
-
+    
     if is_sales:
-        columns = ['sale_date', 'revenue_usd', 'items_sold', 'source_channel', 'related_post_id']
+        # Columns must match the existing table: social_sales_fact
+        columns = ['actual_sales_units', 'fake_post_id']
         placeholders = ', '.join(['%s'] * len(columns))
         sql = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({placeholders})"
-        data_to_insert = [tuple(row) for row in df[columns].values]
+        data_to_insert = [
+          (
+            row['items_sold'],
+            str(row['related_post_id']) if pd.notna(row['related_post_id']) else ''
+          )
+          for index, row in df.iterrows()
+         ]
     else: # social_metrics table
         columns = ['post_id', 'post_date', 'platform', 'reach', 'impressions', 'engagements', 'link_clicks', 'cost_usd']
         placeholders = ', '.join(['%s'] * len(columns))
         # Use ON DUPLICATE KEY UPDATE for social data, assuming post_id is PRIMARY KEY
         sql = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({placeholders}) ON DUPLICATE KEY UPDATE impressions=VALUES(impressions), engagements=VALUES(engagements)"
-
+        
         # Prepare data, ensuring all required columns exist in the DataFrame
         data_to_insert = []
         for index, row in df.iterrows():
@@ -166,17 +201,19 @@ def load_data_to_mysql(df, table_name, database_name, is_sales=False):
 # --- Main Execution Block ---
 if __name__ == '__main__':
     print("--- Starting ETL Pipeline: Conversion Compass ---")
-
-    # Define the global date range for the project (e.g., 1 year of data)
+    
+    # Define the global date range for the project (90 days maximum)
     end_date = pd.Timestamp.now()
-    start_date = end_date - pd.Timedelta(days=365) # 1 year of data
-
+    # DATE RANGE FIXED TO 90 DAYS TO AVOID FACEBOOK API ERROR (400)
+    data_days = 90 
+    start_date = end_date - pd.Timedelta(days=data_days) 
+    
     # --- PART 1: Real Social Media Data (Extraction and Load) ---
     business_id = os.getenv("FB_BUSINESS_ID")
-
+    
     if business_id:
         facebook_df = extract_facebook_data(start_date, end_date, business_id)
-
+        
         if facebook_df is not None and not facebook_df.empty:
             print("\n--- Loading Real Facebook Data ---")
             load_data_to_mysql(
@@ -192,17 +229,21 @@ if __name__ == '__main__':
 
     # --- PART 2: Mock Sales Data (Generation and Load) ---
     print("\n--- Generating Mock Sales Data ---")
-    mock_sales_df = generate_mock_sales_data(start_date, 365)
-
+    mock_sales_df = generate_mock_sales_data(start_date, data_days)
+    
     print("\n--- Loading Mock Sales Data ---")
+    # Table name changed to match existing schema: social_sales_fact
+    
     # Ensure DataFrame column names match the schema (sales_data)
     mock_sales_df.rename(columns={'sale_date': 'sale_date', 'revenue_usd': 'revenue_usd', 'items_sold': 'items_sold', 'source_channel': 'source_channel', 'related_post_id': 'related_post_id'}, inplace=True)
 
     load_data_to_mysql(
         df=mock_sales_df,
-        table_name='sales_data',
+        table_name='social_sales_fact', # <-- FIX: Using your existing table name
         database_name=ANALYTICS_DB_NAME,
         is_sales=True
     )
 
     print("\nETL Pipeline Execution Complete.")
+
+
