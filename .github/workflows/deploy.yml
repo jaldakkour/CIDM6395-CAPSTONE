@@ -6,6 +6,11 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: read # This is usually default, but good practice
+  pages: write   # Necessary for deploying to Pages
+  id-token: write # CRITICAL: This grants permission for the deploy action
+
 jobs:
   build:
     runs-on: ubuntu-latest
