@@ -1,0 +1,30 @@
+[
+    {
+        "day_name":"Monday",
+        "avg_revenue":900.0
+    },
+    {
+        "day_name":"Tuesday",
+        "avg_revenue":996.1538461538
+    },
+    {
+        "day_name":"Wednesday",
+        "avg_revenue":1080.7692307692
+    },
+    {
+        "day_name":"Thursday",
+        "avg_revenue":942.3076923077
+    },
+    {
+        "day_name":"Friday",
+        "avg_revenue":1646.1538461538
+    },
+    {
+        "day_name":"Saturday",
+        "avg_revenue":1650.0
+    },
+    {
+        "day_name":"Sunday",
+        "avg_revenue":1719.2307692308
+    }
+]
