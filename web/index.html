@@ -66,7 +66,7 @@
 
     <script>
         // 1. ACTUAL FACEBOOK ENGAGEMENTS (ETL PROOF)
-        fetch(dataPath + 'facebook_engagements.json')
+        fetch('facebook_engagements.json')
             .then(response => response.json())
             .then(data => {
                 const ctx = document.getElementById('facebookEngagementsChart').getContext('2d');
@@ -91,7 +91,7 @@
             });
 
         // 2. OPTIMAL POSTING DAY (DAY OF WEEK AVG REVENUE)
-        fetch(dataPath + 'day_of_week_avg_revenue.json')
+        fetch('day_of_week_avg_revenue.json')
             .then(response => response.json())
             .then(data => {
                 // Ensure the day order is correct for display
@@ -116,7 +116,7 @@
             });
             
         // 3. COMBINED FLAVOR SALES (HISTORICAL VS PREDICTIVE)
-        fetch(dataPath + 'flavor_sales_comparison.json')
+        fetch('flavor_sales_comparison.json')
             .then(response => response.json())
             .then(data => {
                 const flavors = data.map(item => item.flavor_1);
