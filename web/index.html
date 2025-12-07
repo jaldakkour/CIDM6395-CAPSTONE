@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversion Compass Insights</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns"></script>
 </head>
 <body>
 
@@ -41,19 +43,19 @@
             
             <div class="chart-box">
                 <h3>Inventory Management: Stock vs. Sales (Fixed)</h3>
-                <img src="web/inventory_sales_comparison.png" alt="Inventory Comparison Chart">
+                <img src="inventory_sales_comparison.png" alt="Inventory Comparison Chart">
             </div>
 
             <div class="chart-box">
                 <h3>Predictive Sales Trend: Top 5 Flavors (Fixed Clarity)</h3>
-                <img src="web/flavor_sales_trend.png" alt="Flavor Sales Trend Chart">
+                <img src="flavor_sales_trend.png" alt="Flavor Sales Trend Chart">
             </div>
             
         </div>
         
         <div class="chart-box full-width">
             <h3>Social Engagements and Revenue Over Time</h3>
-            <img src="web/social_impact_time_series.png" alt="Social Impact Time Series Chart">
+            <img src="social_impact_time_series.png" alt="Social Impact Time Series Chart">
         </div>
 
     </main>
@@ -63,9 +65,6 @@
     </footer>
 
     <script>
-        // Set the path prefix for fetching JSON files
-        const dataPath = '/CIDM6395-CAPSTONE/web/';
-
         // 1. ACTUAL FACEBOOK ENGAGEMENTS (ETL PROOF)
         fetch(dataPath + 'facebook_engagements.json')
             .then(response => response.json())
