@@ -137,7 +137,7 @@ ax2.tick_params(axis='y', labelcolor=color)
 plt.title(f'Social Engagements and Revenue Over Time (Correlation: {correlation:.2f})')
 fig.tight_layout()
 plt.grid(True, axis='y', linestyle=':', alpha=0.6)
-plt.savefig('Final Project/web/social_impact_time_series.png')
+plt.savefig('web/social_impact_time_series.png')
 print("Saved chart: social_impact_time_series.png")
 
 # --- EXPORT 1: TIME SERIES (Charts 1) ---
