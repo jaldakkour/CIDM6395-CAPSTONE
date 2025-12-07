@@ -334,6 +334,4 @@ print("Saved chart: combined_flavor_sales.png")
 top_combined_flavors.to_json('Final Project/web/flavor_sales_comparison.json', orient='records', indent=4)
 print("Exported: flavor_sales_comparison.json (for Chart 5)")
 
-
-
 print("\n--- ETL and Analysis Pipeline Complete ---")
