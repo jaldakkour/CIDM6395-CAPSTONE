@@ -5,6 +5,7 @@ import os
 import matplotlib.pyplot as plt
 import seaborn as sns
 import numpy as np
+import json
 from datetime import timedelta
 
 # --- 1. Configuration and Connection SetUp ---
@@ -239,7 +240,37 @@ print("Generating Inventory Analysis Chart (Chart 3)...")
 flavor_sales_summary = df_sales_detail.groupby('tea_flavor')['units_sold'].sum().reset_index()
 flavor_sales_summary.rename(columns={'units_sold': 'total_units_sold'}, inplace=True)
 inventory_analysis = pd.merge(df_inventory, flavor_sales_summary, on='tea_flavor', how='left')
+
 inventory_analysis['ending_inventory'] = np.maximum(0, inventory_analysis['starting_inventory'] - inventory_analysis['total_units_sold'])
+
+# --- INSERT THE INVENTORY DATA CONSTRAINT FIX HERE ---
+
+# 1. Calculate the TOTAL inventory and TOTAL sales across ALL flavors
+#    (These are the two figures used in your specific JSON output structure)
+STARTING_INVENTORY_MAX = inventory_analysis['starting_inventory'].sum()
+total_units_sold_figure = inventory_analysis['total_units_sold'].sum()
+
+# 2. APPLY THE CONSTRAINT
+if total_units_sold_figure > STARTING_INVENTORY_MAX:
+    # If the calculated sold units are too high, cap the figure at the starting inventory max
+    total_unit_sold_corrected = STARTING_INVENTORY_MAX
+else:
+    total_unit_sold_corrected = total_units_sold_figure
+
+# 3. GENERATE THE CORRECTED JSON DATA DICTIONARY
+inventory_analysis_data = {
+    "chartTitle": "Inventory Management: Stock vs. Sales (Fixed)",
+    "startingInventory": STARTING_INVENTORY_MAX,
+    "totalUnitsSold": total_unit_sold_corrected,
+    "remainingInventory": STARTING_INVENTORY_MAX - total_unit_sold_corrected
+}
+
+# 4. SAVE THE CORRECTED JSON FILE
+json_output_path = 'web/inventory_analysis.json'
+with open(json_output_path, 'w') as f:
+    json.dump(inventory_analysis_data, f, indent=4)
+
+print(f"Corrected inventory analysis saved to {json_output_path}")
 
 inventory_analysis.set_index('tea_flavor')[['starting_inventory', 'total_units_sold', 'ending_inventory']].plot(
     kind='bar', figsize=(14, 6), rot=45, 
