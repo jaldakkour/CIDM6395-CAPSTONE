@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Conversion Compass Insights</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/web/style.css">
 </head>
 <body>
 
@@ -41,19 +41,19 @@
             
             <div class="chart-box">
                 <h3>Inventory Management: Stock vs. Sales (Fixed)</h3>
-                <img src="web/inventory_sales_comparison.png" alt="Inventory Comparison Chart">
+                <img src="/web/inventory_sales_comparison.png" alt="Inventory Comparison Chart">
             </div>
 
             <div class="chart-box">
                 <h3>Predictive Sales Trend: Top 5 Flavors (Fixed Clarity)</h3>
-                <img src="web/flavor_sales_trend.png" alt="Flavor Sales Trend Chart">
+                <img src="/web/flavor_sales_trend.png" alt="Flavor Sales Trend Chart">
             </div>
             
         </div>
         
         <div class="chart-box full-width">
             <h3>Social Engagements and Revenue Over Time</h3>
-            <img src="web/social_impact_time_series.png" alt="Social Impact Time Series Chart">
+            <img src="/web/social_impact_time_series.png" alt="Social Impact Time Series Chart">
         </div>
 
     </main>
@@ -64,7 +64,7 @@
 
     <script>
         // Set the path prefix for fetching JSON files
-        const dataPath = '';
+        const dataPath = '/web/';
 
         // 1. ACTUAL FACEBOOK ENGAGEMENTS (ETL PROOF)
         fetch(dataPath + 'facebook_engagements.json')
