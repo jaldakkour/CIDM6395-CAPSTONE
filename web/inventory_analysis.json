@@ -1,194 +1,194 @@
 [
     {
         "tea_flavor":"Test Tea",
-        "starting_inventory":467,
-        "total_units_sold":489,
+        "starting_inventory":411,
+        "total_units_sold":512,
         "ending_inventory":0
     },
     {
         "tea_flavor":"Black Forest",
-        "starting_inventory":581,
-        "total_units_sold":496,
-        "ending_inventory":85
+        "starting_inventory":413,
+        "total_units_sold":508,
+        "ending_inventory":0
     },
     {
         "tea_flavor":"Decaf Earl Grey",
-        "starting_inventory":697,
-        "total_units_sold":475,
-        "ending_inventory":222
+        "starting_inventory":632,
+        "total_units_sold":440,
+        "ending_inventory":192
     },
     {
         "tea_flavor":"Tropical Escape",
-        "starting_inventory":567,
-        "total_units_sold":484,
-        "ending_inventory":83
+        "starting_inventory":678,
+        "total_units_sold":478,
+        "ending_inventory":200
     },
     {
         "tea_flavor":"Bangalore Rose Chai",
-        "starting_inventory":535,
-        "total_units_sold":492,
-        "ending_inventory":43
+        "starting_inventory":513,
+        "total_units_sold":498,
+        "ending_inventory":15
     },
     {
         "tea_flavor":"Berry Berry",
-        "starting_inventory":419,
-        "total_units_sold":480,
+        "starting_inventory":506,
+        "total_units_sold":513,
         "ending_inventory":0
     },
     {
         "tea_flavor":"Be Mine Chocolate Strawberry",
-        "starting_inventory":585,
-        "total_units_sold":484,
-        "ending_inventory":101
+        "starting_inventory":595,
+        "total_units_sold":486,
+        "ending_inventory":109
     },
     {
         "tea_flavor":"English Breakfast Tea",
-        "starting_inventory":534,
-        "total_units_sold":554,
+        "starting_inventory":452,
+        "total_units_sold":511,
         "ending_inventory":0
     },
     {
         "tea_flavor":"Organic Earl Grey",
-        "starting_inventory":475,
-        "total_units_sold":484,
-        "ending_inventory":0
+        "starting_inventory":667,
+        "total_units_sold":509,
+        "ending_inventory":158
     },
     {
         "tea_flavor":"Assam",
-        "starting_inventory":536,
-        "total_units_sold":504,
-        "ending_inventory":32
+        "starting_inventory":686,
+        "total_units_sold":476,
+        "ending_inventory":210
     },
     {
         "tea_flavor":"PG Tips",
-        "starting_inventory":564,
-        "total_units_sold":519,
-        "ending_inventory":45
+        "starting_inventory":555,
+        "total_units_sold":489,
+        "ending_inventory":66
     },
     {
         "tea_flavor":"Tetley",
-        "starting_inventory":489,
-        "total_units_sold":463,
-        "ending_inventory":26
-    },
-    {
-        "tea_flavor":"Root Beer",
-        "starting_inventory":454,
-        "total_units_sold":459,
+        "starting_inventory":421,
+        "total_units_sold":507,
         "ending_inventory":0
     },
     {
+        "tea_flavor":"Root Beer",
+        "starting_inventory":569,
+        "total_units_sold":508,
+        "ending_inventory":61
+    },
+    {
         "tea_flavor":"Coconut a La Creme",
-        "starting_inventory":434,
-        "total_units_sold":469,
+        "starting_inventory":421,
+        "total_units_sold":490,
         "ending_inventory":0
     },
     {
         "tea_flavor":"Uplifting Coconut Chai",
-        "starting_inventory":613,
-        "total_units_sold":452,
-        "ending_inventory":161
+        "starting_inventory":581,
+        "total_units_sold":487,
+        "ending_inventory":94
     },
     {
         "tea_flavor":"Organic Masala Chai",
-        "starting_inventory":661,
-        "total_units_sold":1372,
+        "starting_inventory":615,
+        "total_units_sold":1354,
         "ending_inventory":0
     },
     {
         "tea_flavor":"Reading Nook",
-        "starting_inventory":580,
-        "total_units_sold":540,
-        "ending_inventory":40
+        "starting_inventory":500,
+        "total_units_sold":458,
+        "ending_inventory":42
     },
     {
         "tea_flavor":"Orange Cinnamon Spice",
-        "starting_inventory":429,
-        "total_units_sold":465,
-        "ending_inventory":0
+        "starting_inventory":627,
+        "total_units_sold":489,
+        "ending_inventory":138
     },
     {
         "tea_flavor":"Cr\u00e8me Br\u00fbl\u00e9e Earl Grey",
-        "starting_inventory":581,
-        "total_units_sold":474,
-        "ending_inventory":107
+        "starting_inventory":562,
+        "total_units_sold":518,
+        "ending_inventory":44
     },
     {
         "tea_flavor":"Porch Sippin' Pecan Praline Black",
-        "starting_inventory":631,
-        "total_units_sold":469,
-        "ending_inventory":162
+        "starting_inventory":533,
+        "total_units_sold":487,
+        "ending_inventory":46
     },
     {
         "tea_flavor":"Organic Sencha",
-        "starting_inventory":452,
-        "total_units_sold":487,
-        "ending_inventory":0
+        "starting_inventory":668,
+        "total_units_sold":499,
+        "ending_inventory":169
     },
     {
         "tea_flavor":"Organic Jasmine",
-        "starting_inventory":506,
-        "total_units_sold":510,
-        "ending_inventory":0
+        "starting_inventory":629,
+        "total_units_sold":518,
+        "ending_inventory":111
     },
     {
         "tea_flavor":"Peppermint Tea",
-        "starting_inventory":644,
-        "total_units_sold":481,
-        "ending_inventory":163
-    },
-    {
-        "tea_flavor":"Rooibos Tea",
-        "starting_inventory":556,
-        "total_units_sold":485,
-        "ending_inventory":71
-    },
-    {
-        "tea_flavor":"Organic Licorice Root",
-        "starting_inventory":688,
-        "total_units_sold":505,
-        "ending_inventory":183
-    },
-    {
-        "tea_flavor":"Yaupon",
-        "starting_inventory":694,
-        "total_units_sold":487,
-        "ending_inventory":207
-    },
-    {
-        "tea_flavor":"Vanilla Sugar Cookie",
-        "starting_inventory":551,
-        "total_units_sold":498,
-        "ending_inventory":53
-    },
-    {
-        "tea_flavor":"Toasted Marshmallow",
-        "starting_inventory":430,
-        "total_units_sold":514,
+        "starting_inventory":419,
+        "total_units_sold":517,
         "ending_inventory":0
     },
     {
+        "tea_flavor":"Rooibos Tea",
+        "starting_inventory":483,
+        "total_units_sold":461,
+        "ending_inventory":22
+    },
+    {
+        "tea_flavor":"Organic Licorice Root",
+        "starting_inventory":521,
+        "total_units_sold":492,
+        "ending_inventory":29
+    },
+    {
+        "tea_flavor":"Yaupon",
+        "starting_inventory":674,
+        "total_units_sold":488,
+        "ending_inventory":186
+    },
+    {
+        "tea_flavor":"Vanilla Sugar Cookie",
+        "starting_inventory":493,
+        "total_units_sold":468,
+        "ending_inventory":25
+    },
+    {
+        "tea_flavor":"Toasted Marshmallow",
+        "starting_inventory":688,
+        "total_units_sold":478,
+        "ending_inventory":210
+    },
+    {
         "tea_flavor":"Lavender Day Dream",
-        "starting_inventory":580,
-        "total_units_sold":508,
-        "ending_inventory":72
+        "starting_inventory":645,
+        "total_units_sold":519,
+        "ending_inventory":126
     },
     {
         "tea_flavor":"Organic Northwest Sunset",
-        "starting_inventory":499,
-        "total_units_sold":467,
-        "ending_inventory":32
+        "starting_inventory":487,
+        "total_units_sold":466,
+        "ending_inventory":21
     },
     {
         "tea_flavor":"Organic Lemon Ginger Mate",
-        "starting_inventory":586,
-        "total_units_sold":474,
-        "ending_inventory":112
+        "starting_inventory":635,
+        "total_units_sold":493,
+        "ending_inventory":142
     },
     {
         "tea_flavor":"Strawberry Immunity",
-        "starting_inventory":609,
-        "total_units_sold":476,
-        "ending_inventory":133
+        "starting_inventory":451,
+        "total_units_sold":542,
+        "ending_inventory":0
     }
 ]

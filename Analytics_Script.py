@@ -17,22 +17,42 @@ load_dotenv()
 DB_HOST = os.getenv("DB_HOST")
 DB_USER = os.getenv("DB_USER")
 DB_PASS = os.getenv("DB_PASS")
-CATALOG_DB = "ANALYTICS DATA (FAKE)" #tea_catalog data
 
-# Connection Function
-def create_mysql_connection(host, user, password, database=None):
-    """Creates a connection to the MySQL database."""
-    try:
-        conn = mysql.connector.connect(
-            host=host,
-            user=user,
-            password=password,
-            database=database
-        )
-        return conn
-    except mysql.connector.Error as err:
-        print(f"Error connecting to MySQL: {err}")
-        return None
+#FIX: Define unique variables for each database name
+CATALOG_DB_NAME = "ANALYTICS DATA (FAKE)" #tea_catalog data
+SOCIAL_DB_NAME = "SOCIAL MEDIA DEMO" #real facebook data
+
+# --- ESTABLISH TWO SEPARATE MYSQL CONNECTIONS ---
+# Connection 1: For Catalog/Inventory Data
+try:
+    catalog_conn = mysql.connector.connect(
+        host=DB_HOST,
+        user=DB_USER,
+        password=DB_PASS,
+        database=CATALOG_DB_NAME
+    )
+    print(f"Successfully connected to Catalog database: {CATALOG_DB_NAME}")
+except mysql.connector.Error as err:
+    print(f"Error connecting to Catalog DB: {err}")
+    catalog_conn = None # Set to None if connection fails
+
+# Connection 2: For Social Media Data
+try:
+    social_conn = mysql.connector.connect(
+        host=DB_HOST,
+        user=DB_USER,
+        password=DB_PASS,
+        database=SOCIAL_DB_NAME
+    )
+    print(f"Successfully connected to Social Media database: {SOCIAL_DB_NAME}")
+except mysql.connector.Error as err:
+    print(f"Error connecting to Social Media DB: {err}")
+    social_conn = None # Set to None if connection fails
+
+# If both fail, you might want to exit the script here.
+if not catalog_conn and not social_conn:
+    print("FATAL: Failed to connect to both required databases. Exiting.")
+    exit()
 
 # --- 2. MOCK DATA GENERATOR FUNCTIONS ---
 
@@ -144,25 +164,40 @@ print("Saved chart: social_impact_time_series.png")
 df_time_series_export = df[['post_date', 'daily_engagements', 'daily_revenue']].copy()
 # Convert date objects to string for JSON compatibility
 df_time_series_export['post_date'] = df_time_series_export['post_date'].astype(str)
-df_time_series_export.to_json('Final Project/web/time_series_data.json', orient='records', indent=4)
+df_time_series_export.to_json('web/time_series_data.json', orient='records', indent=4)
 print("Exported: time_series_data.json (for Chart 1)")
 
 # --- CHART 1.5: ACTUAL FACEBOOK ENGAGEMENTS (ETL PROOF) ---
-print("Generating Actual Facebook Engagements Data (ETL Proof)...")
+print("Generating Actual Facebook Engagements Data (ETL Proof) from LIVE SQL...")
 
-# Create a simple DataFrame for the raw Facebook data flow proof
-# We use the existing df_mock_social data (Impressions/Engagements)
-# Note: We must explicitly convert the date column to a string format here.
-df_facebook_proof = df_mock_social[['post_date', 'daily_engagements']].copy()
-
-# Convert date objects to string for JSON compatibility
-df_facebook_proof['post_date'] = df_facebook_proof['post_date'].dt.strftime('%Y-%m-%d')
-df_facebook_proof.rename(columns={'daily_engagements': 'total_engagements'}, inplace=True)
-
-# --- EXPORT 1.5: FACEBOOK ENGAGEMENTS (New Chart JSON) ---
-json_path_fb = 'Final Project/web/facebook_engagements.json'
-df_facebook_proof.to_json(json_path_fb, orient='records', indent=4)
-print(f"Exported: facebook_engagements.json (for ETL Proof Chart) to {json_path_fb}")
+if social_conn:
+    sql_query_facebook = """
+    SELECT 
+        DATE(created_time) AS post_date, 
+        SUM(reactions_total) + SUM(shares_total) + SUM(comments_total) AS total_engagements
+    FROM 
+        facebook_posts_engagement
+    GROUP BY 
+        DATE(created_time)
+    ORDER BY 
+        post_date;
+    """
+    
+    try:
+        df_facebook_proof = pd.read_sql_query(sql_query_facebook, social_conn)
+        
+        # Convert date to string for JSON output
+        df_facebook_proof['post_date'] = df_facebook_proof['post_date'].astype(str)
+        print(f"Successfully loaded {len(df_facebook_proof)} records from LIVE Facebook table.")
+        # --- EXPORT 1.5: FACEBOOK ENGAGEMENTS (New Chart JSON) ---
+        json_path_fb = 'web/facebook_engagements.json'
+        df_facebook_proof.to_json(json_path_fb, orient='records', indent=4)
+        print(f"Exported: facebook_engagements.json (for ETL Proof Chart) to {json_path_fb}")
+     
+    except Exception as e:
+        print(f"Error executing SQL query for Facebook data: {e}")
+else:
+    print("Skipping Facebook Engagements Chart: Social Media database connection failed.")
 
 # --- CHART 2: PREDICTIVE DAY OF WEEK ANALYSIS ---
 print("Generating Day of Week Analysis (Chart 2)...")
@@ -182,17 +217,12 @@ plt.title('Predictive Insight: Average Revenue by Day of Week')
 plt.xlabel('Day of Week (Predicted Optimal Posting Time)')
 plt.ylabel('Average Daily Revenue (USD)')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
-plt.savefig('Final Project/web/revenue_by_day_of_week.png')
+plt.savefig('web/revenue_by_day_of_week.png')
 print("Saved chart: revenue_by_day_of_week.png")
 
 # --- EXPORT 2: DAY OF WEEK AVERAGE (Chart 2) ---
 # 'daily_avg' DataFrame already exists from Chart 2 generation
-daily_avg.to_json('Final Project/web/day_of_week_avg_revenue.json', orient='records', indent=4)
-print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
-
-# --- EXPORT 2: DAY OF WEEK AVERAGE (Chart 2) ---
-# 'daily_avg' DataFrame already exists from Chart 2 generation
-daily_avg.to_json('Final Project/web/day_of_week_avg_revenue.json', orient='records', indent=4)
+daily_avg.to_json('web/day_of_week_avg_revenue.json', orient='records', indent=4)
 print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
 
 # --- ANALYSIS 2: TEA FLAVOR (SQL-Driven) ---
@@ -200,10 +230,8 @@ print("Exported: day_of_week_avg_revenue.json (for Chart 2)")
 print("\n--- Analysis 2: Tea Flavor and Inventory (Charts 3, 4, & 5) ---")
 print("Integrating Tea Catalog Data via MySQL Query...")
 
-conn = create_mysql_connection(DB_HOST, DB_USER, DB_PASS, CATALOG_DB)
-
-if conn is None:
-    print(f"FATAL: Could not connect to {CATALOG_DB}. Tea analysis skipped.")
+if catalog_conn is None:
+    print(f"FATAL: Could not connect to {CATALOG_DB_NAME}. Tea analysis skipped.")
     exit()
 
 # SQL Query to pull the master tea catalog
@@ -218,13 +246,11 @@ FROM
 
 try:
     # Pull the catalog data directly into a DataFrame
-    df_catalog = pd.read_sql(sql_catalog_query, conn)
-    conn.close()
+    df_catalog = pd.read_sql(sql_catalog_query, catalog_conn)
     print(f"Successfully loaded {len(df_catalog)} tea catalog records.")
 
 except Exception as e:
     print(f"Error executing SQL query for tea catalog: {e}")
-    conn.close()
     exit()
 
 # 1. Generate Mock Sales and Inventory Data (Using names from the real catalog)
@@ -260,9 +286,9 @@ else:
 # 3. GENERATE THE CORRECTED JSON DATA DICTIONARY
 inventory_analysis_data = {
     "chartTitle": "Inventory Management: Stock vs. Sales (Fixed)",
-    "startingInventory": STARTING_INVENTORY_MAX,
-    "totalUnitsSold": total_unit_sold_corrected,
-    "remainingInventory": STARTING_INVENTORY_MAX - total_unit_sold_corrected
+    "startingInventory": int( STARTING_INVENTORY_MAX),
+    "totalUnitsSold": int(total_unit_sold_corrected),
+    "remainingInventory": int(STARTING_INVENTORY_MAX - total_unit_sold_corrected)
 }
 
 # 4. SAVE THE CORRECTED JSON FILE
@@ -280,12 +306,12 @@ plt.ylabel('Units')
 plt.xlabel('Tea Flavor')
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('Final Project/web/inventory_sales_comparison.png')
+plt.savefig('web/inventory_sales_comparison.png')
 print("Saved chart: inventory_sales_comparison.png")
 
 # --- EXPORT 3: INVENTORY ANALYSIS (Chart 3) ---
 # 'inventory_analysis' DataFrame already exists from Chart 3 generation
-inventory_analysis.to_json('Final Project/web/inventory_analysis.json', orient='records', indent=4)
+inventory_analysis.to_json('web/inventory_analysis.json', orient='records', indent=4)
 print("Exported: inventory_analysis.json (for Chart 3)")
 
 # --- CHART 4: PREDICTIVE FLAVOR TREND ---
@@ -310,7 +336,7 @@ plt.ylabel('Daily Units Sold')
 plt.legend(title='Tea Flavor', bbox_to_anchor=(1.05, 1), loc='upper left') 
 plt.grid(axis='y', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('Final Project/web/flavor_sales_trend.png')
+plt.savefig('web/flavor_sales_trend.png')
 print("Saved chart: flavor_sales_trend.png (Chart 4 - Fixed)")
 
 # --- CHART 5: COMBINED HISTORICAL & PREDICTIVE FLAVOR SALES (NEW REQUIREMENT) ---
@@ -357,12 +383,23 @@ plt.xlabel('Total Units Sold (Historical & Predicted)')
 plt.ylabel('Primary Flavor')
 plt.grid(axis='x', linestyle=':', alpha=0.6)
 plt.tight_layout()
-plt.savefig('Final Project/web/combined_flavor_sales.png') # New PNG file name
+plt.savefig('web/combined_flavor_sales.png') # New PNG file name
 print("Saved chart: combined_flavor_sales.png")
 
 # --- EXPORT 4: COMBINED FLAVOR SALES (Chart 5 JSON) ---
 # This JSON is for the HTML grouped bar chart
-top_combined_flavors.to_json('Final Project/web/flavor_sales_comparison.json', orient='records', indent=4)
+top_combined_flavors.to_json('web/flavor_sales_comparison.json', orient='records', indent=4)
 print("Exported: flavor_sales_comparison.json (for Chart 5)")
+
+# Close connections only if they were successfully established and are currently open
+if catalog_conn and catalog_conn.is_connected():
+    catalog_conn.close()
+    print("Catalog database connection closed.")
+
+if social_conn and social_conn.is_connected():
+    social_conn.close()
+    print("Social Media database connection closed.")
+
+# ----------------------------------------------------------------------------------
 
 print("\n--- ETL and Analysis Pipeline Complete ---")

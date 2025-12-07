@@ -1,52 +1,52 @@
 [
     {
         "flavor_1":"Bergamot",
-        "historical_units_sold":1433,
-        "predicted_units_sold":1642.65
+        "historical_units_sold":1467,
+        "predicted_units_sold":1679.35
     },
     {
         "flavor_1":"Spicy",
-        "historical_units_sold":1372,
-        "predicted_units_sold":1508.6
+        "historical_units_sold":1354,
+        "predicted_units_sold":1557.7
     },
     {
         "flavor_1":"Malt",
-        "historical_units_sold":958,
-        "predicted_units_sold":1150.9
+        "historical_units_sold":999,
+        "predicted_units_sold":1102.95
     },
     {
         "flavor_1":"Coconut",
-        "historical_units_sold":921,
-        "predicted_units_sold":1099.05
+        "historical_units_sold":977,
+        "predicted_units_sold":1095.85
     },
     {
-        "flavor_1":"Malty",
-        "historical_units_sold":554,
-        "predicted_units_sold":670.7
-    },
-    {
-        "flavor_1":"Creamy Vanilla",
-        "historical_units_sold":540,
-        "predicted_units_sold":716.0
-    },
-    {
-        "flavor_1":"Rich",
-        "historical_units_sold":519,
-        "predicted_units_sold":683.95
-    },
-    {
-        "flavor_1":"Toasted Caramel",
-        "historical_units_sold":514,
-        "predicted_units_sold":613.7
-    },
-    {
-        "flavor_1":"Jasmine",
-        "historical_units_sold":510,
-        "predicted_units_sold":631.5
+        "flavor_1":"Strawberry",
+        "historical_units_sold":542,
+        "predicted_units_sold":684.1
     },
     {
         "flavor_1":"Lavender",
-        "historical_units_sold":508,
-        "predicted_units_sold":636.4
+        "historical_units_sold":519,
+        "predicted_units_sold":601.95
+    },
+    {
+        "flavor_1":"Jasmine",
+        "historical_units_sold":518,
+        "predicted_units_sold":689.9
+    },
+    {
+        "flavor_1":"Pure Mint",
+        "historical_units_sold":517,
+        "predicted_units_sold":641.85
+    },
+    {
+        "flavor_1":"Elderberry",
+        "historical_units_sold":513,
+        "predicted_units_sold":657.65
+    },
+    {
+        "flavor_1":"Malty",
+        "historical_units_sold":511,
+        "predicted_units_sold":675.55
     }
 ]
