@@ -1,9 +1,0 @@
-# Ignore all environment/secret files
-.env
-# Ignore Python specific files
-__pycache__/
-*.pyc
-# Ignore large/generated data files
-/data/
-*.db
-*.model
