@@ -1,0 +1,194 @@
+[
+    {
+        "tea_flavor":"Test Tea",
+        "starting_inventory":596,
+        "total_units_sold":519,
+        "ending_inventory":77
+    },
+    {
+        "tea_flavor":"Black Forest",
+        "starting_inventory":454,
+        "total_units_sold":483,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Decaf Earl Grey",
+        "starting_inventory":520,
+        "total_units_sold":473,
+        "ending_inventory":47
+    },
+    {
+        "tea_flavor":"Tropical Escape",
+        "starting_inventory":456,
+        "total_units_sold":501,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Bangalore Rose Chai",
+        "starting_inventory":637,
+        "total_units_sold":543,
+        "ending_inventory":94
+    },
+    {
+        "tea_flavor":"Berry Berry",
+        "starting_inventory":447,
+        "total_units_sold":465,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Be Mine Chocolate Strawberry",
+        "starting_inventory":456,
+        "total_units_sold":494,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"English Breakfast Tea",
+        "starting_inventory":461,
+        "total_units_sold":487,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Organic Earl Grey",
+        "starting_inventory":648,
+        "total_units_sold":513,
+        "ending_inventory":135
+    },
+    {
+        "tea_flavor":"Assam",
+        "starting_inventory":421,
+        "total_units_sold":531,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"PG Tips",
+        "starting_inventory":541,
+        "total_units_sold":484,
+        "ending_inventory":57
+    },
+    {
+        "tea_flavor":"Tetley",
+        "starting_inventory":487,
+        "total_units_sold":488,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Root Beer",
+        "starting_inventory":526,
+        "total_units_sold":469,
+        "ending_inventory":57
+    },
+    {
+        "tea_flavor":"Coconut a La Creme",
+        "starting_inventory":606,
+        "total_units_sold":471,
+        "ending_inventory":135
+    },
+    {
+        "tea_flavor":"Uplifting Coconut Chai",
+        "starting_inventory":487,
+        "total_units_sold":503,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Organic Masala Chai",
+        "starting_inventory":540,
+        "total_units_sold":1309,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Reading Nook",
+        "starting_inventory":538,
+        "total_units_sold":484,
+        "ending_inventory":54
+    },
+    {
+        "tea_flavor":"Orange Cinnamon Spice",
+        "starting_inventory":515,
+        "total_units_sold":496,
+        "ending_inventory":19
+    },
+    {
+        "tea_flavor":"Cr\u00e8me Br\u00fbl\u00e9e Earl Grey",
+        "starting_inventory":519,
+        "total_units_sold":512,
+        "ending_inventory":7
+    },
+    {
+        "tea_flavor":"Porch Sippin' Pecan Praline Black",
+        "starting_inventory":669,
+        "total_units_sold":495,
+        "ending_inventory":174
+    },
+    {
+        "tea_flavor":"Organic Sencha",
+        "starting_inventory":461,
+        "total_units_sold":515,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Organic Jasmine",
+        "starting_inventory":556,
+        "total_units_sold":459,
+        "ending_inventory":97
+    },
+    {
+        "tea_flavor":"Peppermint Tea",
+        "starting_inventory":489,
+        "total_units_sold":485,
+        "ending_inventory":4
+    },
+    {
+        "tea_flavor":"Rooibos Tea",
+        "starting_inventory":540,
+        "total_units_sold":491,
+        "ending_inventory":49
+    },
+    {
+        "tea_flavor":"Organic Licorice Root",
+        "starting_inventory":544,
+        "total_units_sold":507,
+        "ending_inventory":37
+    },
+    {
+        "tea_flavor":"Yaupon",
+        "starting_inventory":639,
+        "total_units_sold":524,
+        "ending_inventory":115
+    },
+    {
+        "tea_flavor":"Vanilla Sugar Cookie",
+        "starting_inventory":675,
+        "total_units_sold":516,
+        "ending_inventory":159
+    },
+    {
+        "tea_flavor":"Toasted Marshmallow",
+        "starting_inventory":406,
+        "total_units_sold":547,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Lavender Day Dream",
+        "starting_inventory":568,
+        "total_units_sold":476,
+        "ending_inventory":92
+    },
+    {
+        "tea_flavor":"Organic Northwest Sunset",
+        "starting_inventory":645,
+        "total_units_sold":485,
+        "ending_inventory":160
+    },
+    {
+        "tea_flavor":"Organic Lemon Ginger Mate",
+        "starting_inventory":455,
+        "total_units_sold":509,
+        "ending_inventory":0
+    },
+    {
+        "tea_flavor":"Strawberry Immunity",
+        "starting_inventory":643,
+        "total_units_sold":520,
+        "ending_inventory":123
+    }
+]
