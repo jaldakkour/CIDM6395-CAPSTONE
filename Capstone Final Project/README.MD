@@ -17,13 +17,13 @@ This portfolio is a reflection of my commitment to earning my Masters degree. I 
 This portfolio is organized to provide clear and easy access to key projects, documents, and work examples performed throughout the MSCISBA program.
 
 * **Additional Resources**
-    > **This folder contains the PowerPoint presentation, video presentation, and Capstone Synthesis Paper. 
+    > **This folder contains the PowerPoint presentation, video presentation, and Capstone Synthesis Paper.** 
 
 * **Portfolio**
-    > **This folder contains the original four written assignments, as well as the mentioned example files for each of the four core areas (Cybersecurity and Networking, Data Analytics, Data Management, and Software Development).
+    > **This folder contains the original four written assignments, as well as the mentioned example files for each of the four core areas (Cybersecurity and Networking, Data Analytics, Data Management, and Software Development).**
 
 * **Project Artifact**
-    > **The Project Synthesis Demo Artifact link is located in here. A copy of the resulting code is located here as well. The original is saved in the CIDM6395-CAPSTONE folder. 
+    > **The Project Synthesis Demo Artifact link is located in here. A copy of the resulting code is located here as well. The original is saved in the CIDM6395-CAPSTONE folder.** 
 
 Please navigate through the folders to explore the full extent of my work.
 
