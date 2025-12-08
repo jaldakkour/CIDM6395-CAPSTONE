@@ -3,6 +3,7 @@ import requests
 import pandas as pd
 import numpy as np
 import mysql.connector
+import json
 from dotenv import load_dotenv
 from datetime import datetime, timedelta
 # Note: Faker is not explicitly imported here but is assumed to be available
@@ -153,13 +154,16 @@ def load_data_to_mysql(df, table_name, database_name, is_sales=False):
     
     if is_sales:
         # Columns must match the existing table: social_sales_fact
-        columns = ['actual_sales_units', 'fake_post_id']
+        columns = ['sales_date', 'revenue_usd', 'items_sold', 'source_channel', 'related_post_id']
         placeholders = ', '.join(['%s'] * len(columns))
         sql = f"INSERT INTO {table_name} ({', '.join(columns)}) VALUES ({placeholders})"
         data_to_insert = [
           (
-            row['items_sold'],
-            str(row['related_post_id']) if pd.notna(row['related_post_id']) else ''
+              row['sales_date'],
+              row['revenue_usd'],
+              row['items_sold'],
+              row['source_channel'],
+              str(row['related_post_id']) if pd.notna(row['related_post_id']) else 'NOT_SOCIAL'
           )
           for index, row in df.iterrows()
          ]
@@ -172,9 +176,11 @@ def load_data_to_mysql(df, table_name, database_name, is_sales=False):
         # Prepare data, ensuring all required columns exist in the DataFrame
         data_to_insert = []
         for index, row in df.iterrows():
+             post_date_val = row.get('post_date').to_pydatetime() if hasattr(row.get('post_date'), 'to_pydatetime') else row.get('post_date')
+             
              record = (
                 row.get('post_id'),
-                row.get('post_date'),
+                post_date_val,
                 row.get('platform'),
                 row.get('reach', 0),
                 row.get('impressions', 0),
@@ -203,9 +209,9 @@ if __name__ == '__main__':
     print("--- Starting ETL Pipeline: Conversion Compass ---")
     
     # Define the global date range for the project (90 days maximum)
-    end_date = pd.Timestamp.now()
-    # DATE RANGE FIXED TO 90 DAYS TO AVOID FACEBOOK API ERROR (400)
-    data_days = 90 
+    end_date = pd.Timestamp.now().normalize()
+    # DATE RANGE FIXED TO MAX 90 DAYS TO AVOID FACEBOOK API ERROR (400)
+    data_days = 30 
     start_date = end_date - pd.Timedelta(days=data_days) 
     
     # --- PART 1: Real Social Media Data (Extraction and Load) ---
@@ -235,11 +241,11 @@ if __name__ == '__main__':
     # Table name changed to match existing schema: social_sales_fact
     
     # Ensure DataFrame column names match the schema (sales_data)
-    mock_sales_df.rename(columns={'sale_date': 'sale_date', 'revenue_usd': 'revenue_usd', 'items_sold': 'items_sold', 'source_channel': 'source_channel', 'related_post_id': 'related_post_id'}, inplace=True)
+    mock_sales_df.rename(columns={'sale_date': 'sales_date', 'revenue_usd': 'revenue_usd', 'items_sold': 'items_sold', 'source_channel': 'source_channel', 'related_post_id': 'related_post_id'}, inplace=True)
 
     load_data_to_mysql(
         df=mock_sales_df,
-        table_name='social_sales_fact', # <-- FIX: Using your existing table name
+        table_name='social_sales_fact_detail', # <-- FIX: Using your existing table name
         database_name=ANALYTICS_DB_NAME,
         is_sales=True
     )

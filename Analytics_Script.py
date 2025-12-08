@@ -173,12 +173,10 @@ print("Generating Actual Facebook Engagements Data (ETL Proof) from LIVE SQL..."
 if social_conn:
     sql_query_facebook = """
     SELECT 
-        DATE(created_time) AS post_date, 
-        SUM(reactions_total) + SUM(shares_total) + SUM(comments_total) AS total_engagements
+        post_date, 
+        engagements AS total_engagements
     FROM 
-        facebook_posts_engagement
-    GROUP BY 
-        DATE(created_time)
+        social_metrics
     ORDER BY 
         post_date;
     """

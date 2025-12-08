@@ -1,0 +1,12 @@
+# Python environment files
+venv/
+__pycache__/
+*.pyc
+
+# Sensitive credentials
+.env
+
+# Generated files (optional, but keeps repo clean)
+web/*.png
+web/*.json
+

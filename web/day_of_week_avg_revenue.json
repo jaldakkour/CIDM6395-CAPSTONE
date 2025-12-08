@@ -1,30 +1,30 @@
 [
     {
         "day_name":"Monday",
-        "avg_revenue":980.7692307692
+        "avg_revenue":1003.8461538462
     },
     {
         "day_name":"Tuesday",
-        "avg_revenue":1011.5384615385
+        "avg_revenue":973.0769230769
     },
     {
         "day_name":"Wednesday",
-        "avg_revenue":861.5384615385
+        "avg_revenue":1092.3076923077
     },
     {
         "day_name":"Thursday",
-        "avg_revenue":1007.6923076923
+        "avg_revenue":953.8461538462
     },
     {
         "day_name":"Friday",
-        "avg_revenue":1711.5384615385
+        "avg_revenue":1726.9230769231
     },
     {
         "day_name":"Saturday",
-        "avg_revenue":1758.3333333333
+        "avg_revenue":1687.5
     },
     {
         "day_name":"Sunday",
-        "avg_revenue":1746.1538461538
+        "avg_revenue":1700.0
     }
 ]
