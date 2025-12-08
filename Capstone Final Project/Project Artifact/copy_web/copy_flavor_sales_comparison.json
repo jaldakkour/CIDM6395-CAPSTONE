@@ -1,0 +1,52 @@
+[
+    {
+        "flavor_1":"Bergamot",
+        "historical_units_sold":1498,
+        "predicted_units_sold":1717.9
+    },
+    {
+        "flavor_1":"Spicy",
+        "historical_units_sold":1309,
+        "predicted_units_sold":1513.45
+    },
+    {
+        "flavor_1":"Malt",
+        "historical_units_sold":1014,
+        "predicted_units_sold":1130.7
+    },
+    {
+        "flavor_1":"Coconut",
+        "historical_units_sold":974,
+        "predicted_units_sold":1087.7
+    },
+    {
+        "flavor_1":"Toasted Caramel",
+        "historical_units_sold":547,
+        "predicted_units_sold":723.35
+    },
+    {
+        "flavor_1":"Rose",
+        "historical_units_sold":543,
+        "predicted_units_sold":651.15
+    },
+    {
+        "flavor_1":"Brisk",
+        "historical_units_sold":531,
+        "predicted_units_sold":630.55
+    },
+    {
+        "flavor_1":"Earthy",
+        "historical_units_sold":524,
+        "predicted_units_sold":681.2
+    },
+    {
+        "flavor_1":"Strawberry",
+        "historical_units_sold":520,
+        "predicted_units_sold":680.0
+    },
+    {
+        "flavor_1":"Sweet Vanilla",
+        "historical_units_sold":516,
+        "predicted_units_sold":597.8
+    }
+]
